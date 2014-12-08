@@ -1,20 +1,20 @@
 import json
-import jsonReader
+import jsonClasses
 
 mapping = {
-    'area': jsonReader.Area,
-    'labeled': jsonReader.Labeled,
-    'interval': jsonReader.Interval,
-    'sum_interval': jsonReader.SumInterval,
-    'difference_interval': jsonReader.DifferenceInterval,
+    'area': jsonClasses.Area,
+    'labeled': jsonClasses.Labeled,
+    'interval': jsonClasses.Interval,
+    'sum_interval': jsonClasses.SumInterval,
+    'difference_interval': jsonClasses.DifferenceInterval,
     }
 
 jsonFile = open('config_new.json')
 json = json.load(jsonFile)
 
-for category in json:
-    for entry in json[category]:
-        for element in json[category][entry]:
-
+for categoryName, category in json.items():
+    for entry in category['entries']
+        type = entry['type']
+        jsonObject = mapping[type](entry)
 
 jsonFile.close()
