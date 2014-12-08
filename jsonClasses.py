@@ -3,15 +3,17 @@ class JSONType:
         self.source = jsonObject['source']
         self.data = jsonObject['data']
 
-class Area:(JSONType):
+class Area(JSONType):
     def __init__(self, jsonObject):
         self.sourceX = jsonObject['source_x']
         self.sourceY = jsonObject['source_y']
         self.data = jsonObject['data']
 
 class Labeled(JSONType):
+    pass
 
 class Interval(JSONType):
+    pass
 
 class SumInterval(Interval):
     def __init__(self, jsonObject):
@@ -21,9 +23,9 @@ class SumInterval(Interval):
 
 class DifferenceInterval(Interval):
     def __init__(self, jsonObject):
-        self.sourceBegin = jsonObject
-        self.sourceEnd = sourceEnd
-        self.data = data
+        self.sourceBegin = jsonObject['source_begin']
+        self.sourceEnd = jsonObject['source_end']
+        self.data = jsonObject['data']
 
 
         
