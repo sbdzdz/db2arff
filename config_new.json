@@ -2,6 +2,7 @@
 	"time": {
 		"entries": [
 			{
+				"name":"timestamp",
 				"type":"interval",
 				"source":"timestamp",
 				"data": [
@@ -28,6 +29,7 @@
 	"locations": {
 		"entries": [
 			{
+				"name":"geographical",
 				"type": "area",
 				"source_x":"latitude",
 				"source_y":"longitude",
@@ -94,6 +96,7 @@
 				]
 			},
 			{
+				"name":"speed",
 				"type":"interval",
 				"source":"speed",
 				"data": [
@@ -125,6 +128,7 @@
 	"plugin_google_activity_recognition": {
 		"entries": [
 			{
+				"name":"activity",
 				"type":"labeled",
 				"source":"activity_name",
 				"data":[
@@ -155,6 +159,7 @@
 				]
 			},
 			{
+				"name":"confidence",
 				"type":"interval",
 				"source":"confidence",
 				"data": [
@@ -186,6 +191,7 @@
 	"network_traffic": {
 		"entries": [
 			{
+				"name":"received_bytes",
 				"type":"sum_interval",
 				"window":5,
 				"source":"double_received_bytes",
@@ -208,6 +214,7 @@
 				]
 			},
 			{
+				"name":"sent_bytes",
 				"type":"sum_interval",
 				"window":5,
 				"source":"double_sent_bytes",
@@ -230,6 +237,7 @@
 				]
 			},
 			{
+				"name":"received_packets",
 				"type":"sum_interval",
 				"window":5,
 				"source":"double_received_packets",
@@ -252,6 +260,7 @@
 				]
 			},
 			{
+				"name":"sent_packets",
 				"type":"sum_interval",
 				"window":5,
 				"source":"double_sent_packets",
@@ -279,6 +288,7 @@
 	"applications_history": {
 		"entries": [
 			{
+				"name":"name",
 				"type":"labeled",
 				"source":"application_name",
 				"data": [
@@ -307,6 +317,7 @@
 				]
 			},
 			{
+				"name":"usage_time",
 				"type":"difference_interval",
 				"source_end":"double_end_timestamp",
 				"source_begin":"timestamp",
