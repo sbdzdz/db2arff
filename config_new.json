@@ -1,0 +1,338 @@
+{
+	"time": {
+		"entries": [
+			{
+				"type":"interval",
+				"source":"timestamp",
+				"data": [
+					{
+						"label":"Night",
+						"from":"00:00",
+						"to":"08:00"
+					},
+					{
+						"label":"Day",
+						"from":"08:00",
+						"to":"20:00"
+					},
+					{
+						"label":"Evening",
+						"from":"20:00",
+						"to":"24:00"
+					}
+				]
+			}
+		]
+	},
+		
+	"locations": {
+		"entries": [
+			{
+				"type": "area",
+				"source_x":"latitude",
+				"source_y":"longitude",
+				"data": [
+					{
+						"label": "House",
+						"vertices": [
+							{
+								"latitude":50.0662986,
+								"longitude":19.9224155
+							},
+							{
+								"latitude":50.0662978,
+								"longitude":19.9224133
+							},
+							{
+								"latitude":50.0662923,
+								"longitude":19.9224122
+							},
+							{
+								"latitude":50.0662911,
+								"longitude":19.9224112
+							}
+						]
+					},
+					{
+						"label": "Work",
+						"vertices": [
+							{
+								"latitude":50.0662986,
+								"longitude":19.9224155
+							},
+							{
+								"latitude":50.0662978,
+								"longitude":19.9224133
+							},
+							{
+								"latitude":50.0662923,
+								"longitude":19.9224122
+							}
+						]
+					},
+					{
+						"label": "University",
+						"vertices": [
+							{
+								"latitude":50.0662923,
+								"longitude":19.9224189
+							},
+							{
+								"latitude":50.0662976,
+								"longitude":19.9224112
+							},
+							{
+								"latitude":50.06629290,
+								"longitude":19.9224117
+							},
+							{
+								"latitude":50.0662945,
+								"longitude":19.9224178
+							}
+						]
+					}		
+				]
+			},
+			{
+				"type":"interval",
+				"source":"speed",
+				"data": [
+					{
+						"label": "Still",
+						"from":0,
+						"to":0
+					},
+					{
+						"label": "Walking",
+						"from":0,
+						"to":6
+					},
+					{
+						"label": "Bike",
+						"from":6,
+						"to":30
+					},
+					{
+						"label": "Vehicle",
+						"from":30,
+						"to":100
+					}
+				]
+			}
+		]
+	},
+
+	"plugin_google_activity_recognition": {
+		"entries": [
+			{
+				"type":"labeled",
+				"source":"activity_name",
+				"data":[
+					{
+						"label":"Still",
+						"included": [
+							"still"
+						]
+					},
+					{
+						"label":"Walking",
+						"included": [
+							"on_foot"
+						]
+					},
+					{
+						"label":"Bike",
+						"included": [
+							"on_bicycle"
+						]
+					},
+					{
+						"label":"Vehicle",
+						"included": [
+							"in_vehicle"
+						]
+					}
+				]
+			},
+			{
+				"type":"interval",
+				"source":"confidence",
+				"data": [
+					{
+						"label":"Low",
+						"from":0,
+						"to":25
+					},
+					{
+						"label":"Medium",
+						"from":25,
+						"to":50
+					},
+					{
+						"label":"High",
+						"from":50,
+						"to":75
+					},
+					{
+						"label":"Very High",
+						"from":75,
+						"to":100
+					}
+				]
+			}
+		]
+	},
+
+	"network_traffic": {
+		"entries": [
+			{
+				"type":"sum_interval",
+				"window":5,
+				"source":"double_received_bytes",
+				"data": [
+					{
+						"label":"Low",
+						"from":0,
+						"to":102400
+					},
+					{
+						"label":"Medium",
+						"from":102400,
+						"to":1024000
+					},
+					{
+						"label":"High",
+						"from":10240000,
+						"to":99999999
+					}
+				]
+			},
+			{
+				"type":"sum_interval",
+				"window":5,
+				"source":"double_sent_bytes",
+				"data": [
+					{
+						"label":"Low",
+						"from":0,
+						"to":51200
+					},
+					{
+						"label":"Medium",
+						"from":51200,
+						"to":5120000
+					},
+					{
+						"label":"High",
+						"from":5120000,
+						"to":99999999
+					}
+				]
+			},
+			{
+				"type":"sum_interval",
+				"window":5,
+				"source":"double_received_packets",
+				"data": [
+					{
+						"label":"Low",
+						"from":0,
+						"to":100
+					},
+					{
+						"label":"Medium",
+						"from":100,
+						"to":1000
+					},
+					{
+						"label":"High",
+						"from":1000,
+						"to":9999
+					}
+				]
+			},
+			{
+				"type":"sum_interval",
+				"window":5,
+				"source":"double_sent_packets",
+				"data": [
+					{
+						"label":"Low",
+						"from":0,
+						"to":50
+					},
+					{
+						"label":"Medium",
+						"from":50,
+						"to":500
+					},
+					{
+						"label":"High",
+						"from":500,
+						"to":9999
+					}
+				]
+			}
+		]
+	},
+	
+	"applications_history": {
+		"entries": [
+			{
+				"type":"labeled",
+				"source":"application_name",
+				"data": [
+					{
+						"label":"Mailing",
+						"included": [
+							"E-mail",
+							"Gmail"
+						]
+					},
+					{
+						"label":"Social",
+						"included": [
+							"Facebook",
+							"Twitter",
+							"Google+"
+						]
+					},
+					{
+						"label":"Games",
+						"included": [
+							"Angry Birds",
+							"Candy Crush"
+						]
+					}
+				]
+			},
+			{
+				"type":"difference_interval",
+				"source_end":"double_end_timestamp",
+				"source_begin":"timestamp",
+				"data": [
+					{
+						"label":"Short",
+						"from":0,
+						"to":60
+					},
+					{
+						"label":"Normal",
+						"from":60,
+						"to":300
+					},
+					{
+						"label":"Long",
+						"from":300,
+						"to":3600
+					},
+					{
+						"label":"Ultra long",
+						"from":3600,
+						"to":86400
+					}
+				]
+			}
+		]
+	}
+}

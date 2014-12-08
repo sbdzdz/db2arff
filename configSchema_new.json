@@ -1,0 +1,226 @@
+{
+	"$schema": "http://json-schema.org/draft-03/schema#",
+	"title": "Context Viewer",
+	"type": "object",
+	"properties": {
+		"time": {
+			"type":"object",
+			"properties": {
+				"entries": {
+					"type":"array",
+					"items": {
+						"type":"object",
+						"properties": {
+							"type": {
+								"type":"string"
+							},
+							"source": {
+								"type":"string"
+							},
+							"data": {
+								"type":"array",
+								"items": {
+									"type":"object",
+									"properties": {
+										"from": {
+											"type":"string"
+										},
+										"to": {
+											"type":"string"
+										},
+										"label": {
+											"type":"string"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		
+		"locations": {
+			"type":"object",
+			"properties": {
+				"entries": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"type": {
+								"type":"string"
+							},
+							"sourceX": {
+								"type":"string"
+							},
+							"sourceY": {
+								"type":"string"
+							},
+							"data": {
+								"type":"array",
+								"items": {
+									"type":"object",
+									"properties": {
+										"label": {
+											"type":"string"
+										},
+										"from": {
+											"type":"number"
+										},
+										"to": {
+											"type":"number"
+										},
+										"vertices": {
+											"type":"array",
+											"items": {
+												"type":"object",
+												"properties": {
+													"latitude": {
+														"type":"number"
+													},
+													"longitude": {
+														"type":"number"
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}	
+			}
+		},
+
+		"plugin_google_activity_recognition": {
+			"type":"object",
+			"properties": {
+				"entries": {
+					"type":"array",
+					"items": {
+						"type":"object",
+						"properties": {
+							"type": {
+								"type":"string"
+							},
+							"source": {
+								"type":"string"
+							},
+							"data": {
+								"type":"array",
+								"items": {
+									"type":"object",
+									"properties": {
+										"label": {
+											"type":"string"
+										},
+										"included": {
+											"type":"array",
+											"items": {
+												"type":"string"
+											}
+										},
+										"from": {
+											"type":"number"
+										},
+										"to": {
+											"type":"number"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"network_traffic": {
+			"type":"object",
+			"properties": {
+				"entries": {
+					"type":"array",
+					"items": {
+						"type":"object",
+						"properties": {
+							"type": {
+								"type":"string"
+							},
+							"window": {
+								"type":"number"
+							},
+							"source": {
+								"type":"string"
+							},
+							"data": {
+								"type":"array",
+								"items": {
+									"type":"object",
+									"properties": {
+										"label": {
+											"type":"string"
+										},
+										"from": {
+											"type":"number"
+										},
+										"to": {
+											"type":"number"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		
+		"applications_history": {
+			"type":"object",
+			"properties": {
+				"entries": {
+					"type":"array",
+					"items": {
+						"type":"object",
+						"properties": {
+							"type": {
+								"type":"string"
+							},
+							"source": {
+								"type":"string"
+							},
+							"source_begin": {
+								"type":"string"
+							},
+							"data": {
+								"type":"array",
+								"items": {
+									"type":"object",
+									"properties": {
+										"label": {
+											"type":"string"
+										},
+										"included": {
+											"type":"array",
+											"items": {
+												"type":"string"
+											}
+										},
+										"from": {
+											"type":"number"
+										},
+										"to": {
+											"type":"number"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
