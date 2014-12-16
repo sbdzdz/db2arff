@@ -2,10 +2,10 @@
 	"time": {
 		"entries": [
 			{
-				"name":"timestamp",
+				"table":"time",
+				"column":"timestamp",
 				"type":"interval",
-				"source":"timestamp",
-				"data": [
+				"intervals": [
 					{
 						"label":"Night",
 						"from":"00:00",
@@ -29,11 +29,11 @@
 	"locations": {
 		"entries": [
 			{
-				"name":"geographical",
+				"table":"locations",
+				"column_x":"double_latitude",
+				"column_y":"double_longitude",
 				"type": "area",
-				"source_x":"latitude",
-				"source_y":"longitude",
-				"data": [
+				"intervals": [
 					{
 						"label": "House",
 						"vertices": [
@@ -96,10 +96,10 @@
 				]
 			},
 			{
-				"name":"speed",
+				"table":"locations",
+				"column":"double_speed",
 				"type":"interval",
-				"source":"double_speed",
-				"data": [
+				"intervals": [
 					{
 						"label": "Still",
 						"from":0,
@@ -125,13 +125,13 @@
 		]
 	},
 
-	"plugin_google_activity_recognition": {
+	"activities": {
 		"entries": [
 			{
-				"name":"activity",
+				"table":"plugin_google_activity_recognition",
+				"column":"activity_name",
 				"type":"labeled",
-				"source":"activity_name",
-				"data":[
+				"intervals":[
 					{
 						"label":"Still",
 						"included": [
@@ -159,10 +159,10 @@
 				]
 			},
 			{
-				"name":"confidence",
+				"table":"plugin_google_activity_recognition",
+				"column":"confidence",
 				"type":"interval",
-				"source":"confidence",
-				"data": [
+				"intervals": [
 					{
 						"label":"Low",
 						"from":0,
@@ -188,14 +188,14 @@
 		]
 	},
 
-	"network_traffic": {
+	"network": {
 		"entries": [
 			{
-				"name":"received_bytes",
+				"table":"network",
+				"column":"double_received_bytes",
 				"type":"sum_interval",
 				"window":5,
-				"source":"double_received_bytes",
-				"data": [
+				"intervals": [
 					{
 						"label":"Low",
 						"from":0,
@@ -214,11 +214,11 @@
 				]
 			},
 			{
-				"name":"sent_bytes",
+				"table":"network",
+				"column":"double_sent_bytes",
 				"type":"sum_interval",
 				"window":5,
-				"source":"double_sent_bytes",
-				"data": [
+				"intervals": [
 					{
 						"label":"Low",
 						"from":0,
@@ -237,11 +237,11 @@
 				]
 			},
 			{
-				"name":"received_packets",
+				"table":"network",
+				"column":"double_received_packets",
 				"type":"sum_interval",
 				"window":5,
-				"source":"double_received_packets",
-				"data": [
+				"intervals": [
 					{
 						"label":"Low",
 						"from":0,
@@ -260,11 +260,11 @@
 				]
 			},
 			{
-				"name":"sent_packets",
+				"table":"network",
+				"column":"double_sent_packets",
 				"type":"sum_interval",
 				"window":5,
-				"source":"double_sent_packets",
-				"data": [
+				"intervals": [
 					{
 						"label":"Low",
 						"from":0,
@@ -285,13 +285,13 @@
 		]
 	},
 	
-	"applications_history": {
+	"applications": {
 		"entries": [
 			{
-				"name":"name",
+				"table":"applications_history",
+				"column":"application_name",
 				"type":"labeled",
-				"source":"application_name",
-				"data": [
+				"intervals": [
 					{
 						"label":"Mailing",
 						"included": [
@@ -317,11 +317,10 @@
 				]
 			},
 			{
-				"name":"usage_time",
+				"table":"applications_history",
+				"column":"double_end_timestamp",
 				"type":"difference_interval",
-				"source_end":"double_end_timestamp",
-				"source_begin":"timestamp",
-				"data": [
+				"intervals": [
 					{
 						"label":"Short",
 						"from":0,
