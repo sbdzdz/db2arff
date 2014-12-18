@@ -2,24 +2,33 @@
 	"time": {
 		"entries": [
 			{
-				"table":"time",
-				"column":"timestamp",
-				"type":"interval",
+				"name":"timestamp",
+				"type":"time",
 				"intervals": [
 					{
-						"label":"Night",
-						"from":"00:00",
-						"to":"08:00"
+						"label":"Morning",
+						"from":6,
+						"to":10
 					},
 					{
 						"label":"Day",
-						"from":"08:00",
-						"to":"20:00"
+						"from":10,
+						"to":12
+					},
+					{
+						"label":"Afternoon",
+						"from":12,
+						"to":18
 					},
 					{
 						"label":"Evening",
-						"from":"20:00",
-						"to":"24:00"
+						"from":18,
+						"to":21
+					},
+					{
+						"label":"Night",
+						"from":21,
+						"to":7
 					}
 				]
 			}
@@ -29,73 +38,96 @@
 	"locations": {
 		"entries": [
 			{
+			        "name":"geographical",
 				"table":"locations",
 				"column_x":"double_latitude",
 				"column_y":"double_longitude",
 				"type": "area",
 				"intervals": [
 					{
+						"label": "AGH",
+						"vertices": [
+							{
+								"latitude":50.066459,
+								"longitude":19.926258
+							},
+							{
+								"latitude":50.061400,
+								"longitude":19.924912
+							},
+							{
+								"latitude":50.067130,
+								"longitude":19.897875
+							},
+							{
+								"latitude":50.071567,
+								"longitude":19.900858
+							}
+						]
+					},
+					{
+						"label": "City Centre",
+						"vertices": [
+							{
+								"latitude":50.0662986,
+								"longitude":19.9224155
+							},
+							{
+								"latitude":50.0662978,
+								"longitude":19.9224133
+							},
+							{
+								"latitude":50.0662923,
+								"longitude":19.9224122
+							}
+						]
+					},
+					{
 						"label": "House",
 						"vertices": [
 							{
-								"latitude":50.0662986,
-								"longitude":19.9224155
+								"latitude":50.015723,
+								"longitude":19.989874
 							},
 							{
-								"latitude":50.0662978,
-								"longitude":19.9224133
+								"latitude":50.013669,
+								"longitude":19.987535
 							},
 							{
-								"latitude":50.0662923,
-								"longitude":19.9224122
+								"latitude":50.015668,
+								"longitude":19.982878
 							},
 							{
-								"latitude":50.0662911,
-								"longitude":19.9224112
+								"latitude":50.018260,
+								"longitude":19.986440
 							}
 						]
-					},
+ 					},
 					{
-						"label": "Work",
+						"label": "Commuting",
 						"vertices": [
 							{
-								"latitude":50.0662986,
-								"longitude":19.9224155
+								"latitude":50.056538,
+								"longitude":19.919988
 							},
 							{
-								"latitude":50.0662978,
-								"longitude":19.9224133
+								"latitude":50.060065,
+								"longitude":19.951402
 							},
 							{
-								"latitude":50.0662923,
-								"longitude":19.9224122
+								"latitude":50.024566,
+								"longitude":19.984361
+							},
+							{
+								"latitude":50.014189,
+								"longitude":19.957299
 							}
 						]
-					},
-					{
-						"label": "University",
-						"vertices": [
-							{
-								"latitude":50.0662923,
-								"longitude":19.9224189
-							},
-							{
-								"latitude":50.0662976,
-								"longitude":19.9224112
-							},
-							{
-								"latitude":50.06629290,
-								"longitude":19.9224117
-							},
-							{
-								"latitude":50.0662945,
-								"longitude":19.9224178
-							}
-						]
-					}		
+ 					}		
 				]
 			},
 			{
+			        "name":"speed",
 				"table":"locations",
 				"column":"double_speed",
 				"type":"interval",
@@ -128,6 +160,7 @@
 	"activities": {
 		"entries": [
 			{
+				"name":"name",
 				"table":"plugin_google_activity_recognition",
 				"column":"activity_name",
 				"type":"labeled",
@@ -159,6 +192,7 @@
 				]
 			},
 			{
+				"name":"confidence",
 				"table":"plugin_google_activity_recognition",
 				"column":"confidence",
 				"type":"interval",
@@ -191,7 +225,8 @@
 	"network": {
 		"entries": [
 			{
-				"table":"network",
+				"name":"received_bytes",
+				"table":"network_traffic",
 				"column":"double_received_bytes",
 				"type":"sum_interval",
 				"window":5,
@@ -208,13 +243,14 @@
 					},
 					{
 						"label":"High",
-						"from":10240000,
+						"from":1024000,
 						"to":99999999
 					}
 				]
 			},
 			{
-				"table":"network",
+				"name":"sent_bytes",
+				"table":"network_traffic",
 				"column":"double_sent_bytes",
 				"type":"sum_interval",
 				"window":5,
@@ -237,7 +273,8 @@
 				]
 			},
 			{
-				"table":"network",
+				"name":"received_packets",
+				"table":"network_traffic",
 				"column":"double_received_packets",
 				"type":"sum_interval",
 				"window":5,
@@ -260,7 +297,8 @@
 				]
 			},
 			{
-				"table":"network",
+				"name":"sent_packets",
+				"table":"network_traffic",
 				"column":"double_sent_packets",
 				"type":"sum_interval",
 				"window":5,
@@ -288,6 +326,7 @@
 	"applications": {
 		"entries": [
 			{
+				"name":"name",
 				"table":"applications_history",
 				"column":"application_name",
 				"type":"labeled",
@@ -304,7 +343,17 @@
 						"included": [
 							"Facebook",
 							"Twitter",
-							"Google+"
+							"Google+",
+							"LinkedIn"
+						]
+					},
+					{
+						"label":"Communicators",
+						"included": [
+							"Messenger",
+							"Hangouts",
+							"Google+",
+							"Message"
 						]
 					},
 					{
@@ -313,10 +362,40 @@
 							"Angry Birds",
 							"Candy Crush"
 						]
+					},
+					{
+						"label":"System",
+						"included": [
+							"Program uruchamiaj?cy",
+							"Mened?er",
+							"Mened?er zada?",
+							"Pami?? kalendarza",
+							"Aktualiz. oprogramow."
+						]
+					},
+										{
+						"label":"Weather",
+						"included": [
+							"AccuWeather.com"
+						]
+					},
+					{
+						"label":"Google Play",
+						"included": [
+							"Us?ugi Google Play",
+							"Sklep Google Play"
+						]
+					},
+				    {
+					    "label":"TTS",
+					    "included": [
+						"Mechanizm Google przetwarzania tekstu na mow?"
+						]
 					}
 				]
 			},
 			{
+				"name":"usage_time",
 				"table":"applications_history",
 				"column":"double_end_timestamp",
 				"type":"difference_interval",
