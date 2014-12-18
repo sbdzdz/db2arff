@@ -25,10 +25,11 @@ class JSONParser:
         out = open('out.arff', 'w')
         out.write("@RELATION aware\n\n")
         for header in headers:
-            out.write("@ATTRIBUTE {0} string\n".format(header))
+            labels = ",".join(pd.unique(dataFrame[header].values)).replace(' ', '_')
+            out.write("@ATTRIBUTE " + header + " {" + labels + "} %string\n")
         out.write("\n@DATA\n")
         for row in dataFrame.values:
-            out.write(",".join(row))
+            out.write(",".join(row).replace(' ', '_'))
             out.write("\n")
         out.close()
                    
