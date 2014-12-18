@@ -2,6 +2,7 @@ import pymysql as db
 import numpy as np
 import configparser as cp
 from shapely.geometry import Point, Polygon
+import pandas as pd
 
 class JSONType:
 
@@ -10,18 +11,22 @@ class JSONType:
     def __init__(self, jsonObject):
         self.table = jsonObject['table']
         self.column = jsonObject['column']
+        self.name = jsonObject['name']
         self.intervals = jsonObject['intervals']
 
     def getLabeledData(self, deviceID, start, end):
         data = self.getData(deviceID, start, end)
-        labeledData = self.labelData(data)
+        timestamps = [row[0] for row in data]
+        values = [row[1] for row in data]
+        labeledValues = self.labelData(values)
+        labeledData = pd.DataFrame(data = labeledValues, index = timestamps, columns = ["{0}:{1}".format(self.table, self.name)])
         return labeledData
     
     def getData(self, deviceID, start, end):
         query = self.generateQuery(deviceID, start, end)
         connection = self.establishConnection(self.configFileName)
         data = self.executeQuery(query, connection)
-        return data
+        return(data)
 
     def establishConnection(self, configFile):
         config = cp.ConfigParser()
@@ -36,7 +41,7 @@ class JSONType:
         
     def generateQuery(self, deviceID, start, end):
         query = (
-            'select {0} '
+            'select timestamp, {0} '
             'from {1} '
             'where device_id ="{2}" '
             'and timestamp>={3} '
@@ -47,7 +52,7 @@ class JSONType:
     def executeQuery(self, query, connection):
         cursor = connection.cursor()
         cursor.execute(query)
-        data = [row[0] for row in cursor]
+        data = cursor.fetchall()
         return data
 
     def labelData(self, data):
@@ -72,17 +77,23 @@ class JSONType:
         edges = sorted(list(union))
         bins = np.array(edges[1:-1]) #open outer ranges
         return bins
-            
+
+class Time(JSONType):
+    def __init__(self, jsonObject):
+        self.name = jsonObject['name']
+        self.intervals = jsonObject['intervals']
+
 class Area(JSONType):
     def __init__(self, jsonObject):
         self.table = jsonObject['table']
         self.columnX = jsonObject['column_x']
         self.columnY = jsonObject['column_y']
+        self.name = jsonObject['name']
         self.intervals = jsonObject['intervals']
         
     def generateQuery(self, deviceID, start, end):
         query = (
-            'select {0}, {1} '
+            'select timestamp, {0}, {1} '
             'from {2} '
             'where device_id ="{3}" '
             'and timestamp>={4} '
@@ -93,25 +104,18 @@ class Area(JSONType):
     def executeQuery(self, query, connection):
         cursor = connection.cursor()
         cursor.execute(query)
-        data = [Point(row[0], row[1]) for row in cursor]
+        data = [(row[0], Point(row[1], row[2])) for row in cursor]
         return data
 
     def labelData(self, data):
         labels = self.getLabels()
-        classifiedData = self.classifyData(data)
-        labeledData = [labels.get(point, "Other") for point in classifiedData]
-        print(labeledData)
+        labeledData = [self.classifyPoint(point, labels) for point in data]
         return labeledData
+    
+    def classifyPoint(self, point, labels):
+        match = next((labels[polygon] for polygon in labels if polygon.contains(point)), "Other")
+        return match
 
-    def classifyData(self, data):
-        polygons = self.getPolygons()
-        classifiedData = [polygon if polygon.contains(point) else None for polygon in polygons for point in data]
-        return classifiedData
-
-    def getPolygons(self):
-        polygons = [self.createPolygon(interval['vertices']) for interval in self.intervals]
-        return polygons
-        
     def getLabels(self):
         labels = {self.createPolygon(interval['vertices']) : interval['label'] for interval in self.intervals}
         return labels
@@ -139,16 +143,16 @@ class SumInterval(Interval):
     pass
 
 class TimeInterval(Interval):
+    pass
     def generateQuery(self, deviceID, start, end):
         query = (
-            'select *, `{0}`-`timestamp` as `usage` '
+            'select timestamp, `{0}`-`timestamp` as `usage` '
             'from {1} '
             'where device_id ="{2}" '
             'and timestamp>={3} '
             'and timestamp<={4}'
             ).format(self.column, self.table, deviceID, start, end)
         return query
-
     
 
 
