@@ -1,17 +1,17 @@
 import json
-import jsonClasses
+import classes
 import pandas as pd
 import arff
 
 
 class JSONParser:
     appropriateConstructor = {
-        'area': jsonClasses.Area,
-        'time': jsonClasses.Time,
-        'labeled': jsonClasses.Labeled,
-        'interval': jsonClasses.Interval,
-        'sum_interval': jsonClasses.SumInterval,
-        'difference_interval': jsonClasses.TimeInterval,
+        'area': classes.Area,
+        'time': classes.Time,
+        'labeled': classes.Labeled,
+        'interval': classes.Interval,
+        'sum_interval': classes.SumInterval,
+        'difference_interval': classes.TimeInterval,
     }
 
     def __init__(self, jsonFileName):
