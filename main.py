@@ -1,4 +1,4 @@
-from jsonParser import JSONParser
+from parser import JSONParser
 
 jsonFileName = 'config.json'
 start = 0
