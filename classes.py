@@ -135,25 +135,3 @@ class Labeled(JSONType):
     def getLabels(self):
         labels = {key: interval['label'] for interval in self.intervals for key in interval['included']}
         return labels
-    
-class Interval(JSONType):
-    pass
-
-class SumInterval(Interval):
-    pass
-
-class TimeInterval(Interval):
-    pass
-    def generateQuery(self, deviceID, start, end):
-        query = (
-            'select timestamp, `{0}`-`timestamp` as `usage` '
-            'from {1} '
-            'where device_id ="{2}" '
-            'and timestamp>={3} '
-            'and timestamp<={4}'
-            ).format(self.column, self.table, deviceID, start, end)
-        return query
-    
-
-
-        
